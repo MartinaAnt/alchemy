@@ -12,6 +12,14 @@ Base = declarative_base()
 # engine.execute("USE book_work") #select new db
 # eng = create_engine("mysql+pymysql://root:root@/book_worm", echo = True)
 
+# tvorba nové databáze
+#from sqlalchemy import create_engine
+#from sqlalchemy_utils import database_exists, create_database
+
+#engine = create_engine("postgres://localhost/book_worm")
+#if not database_exists(engine.url):
+#    create_database(engine.url)
+
 
 class Bookcase(Base):
 

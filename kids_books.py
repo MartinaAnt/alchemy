@@ -41,7 +41,7 @@ def kids_library():
     pass
 
 
-# ADD book into the library
+## ADD book into the library
 @kids_library.command()
 # @click.option("--adding", prompt="Add a book")
 @click.option("--name", prompt="Name of the book")
@@ -55,7 +55,7 @@ def add_book(name, author, pages):
     print(f"Added: {book.book_name}, {book.author}, {book.number_of_pages}")
 
 
-# SUMMARY, write out the content of the library, dump file
+## SUMMARY, write out the content of the library, dump file
 @kids_library.command()
 # @click.option("--read", default=False, is_flag=True)
 def dump_file():
@@ -66,17 +66,17 @@ def dump_file():
         print(f"{book.id}.) Název: {book.book_name}, autor: {book.author}, počet stran: {book.number_of_pages} (přidáno do knihovny: {book.date_added})")
 
 
-# READ, the books that we have already read
-# @kids_library.command()
-# @click.option("--book_id", prompt="Insert ID of the book")
-# def already_read(book_id):
-#     book_session = Session()
-#     qu = book_session.query(Book)
-#     read_book = qu.filter_by(id=book_id).one()
-#     read_book.read = datetime.now()
-#     book_session.add(read_book)
-#     book_session.commit()
-#     print(f"Kniha s ID {book_id} byla přečtena")
+## READ, the books that we have already read
+@kids_library.command()
+@click.option("--book_id", prompt="Insert ID of the book")
+def already_read(book_id):
+    book_session = connect_to()
+    qu = book_session.query(Book)
+    read_book = qu.filter_by(id=book_id).one()
+    read_book.read_yes_no = True
+    book_session.add(read_book)
+    book_session.commit()
+    print(f"Kniha s ID {book_id} byla přečtena")
 
 
 

@@ -57,7 +57,6 @@ def add_book(name, author, pages):
 
 ## SUMMARY, write out the content of the library, dump file
 @kids_library.command()
-# @click.option("--read", default=False, is_flag=True)
 def dump_file():
     book_session = connect_to()
     qu = book_session.query(Book)   #qu (=query)
@@ -95,6 +94,21 @@ def partially_read(book_id):
     book_session.add(read_book)
     book_session.commit()
     print(f"Kniha s ID {book_id} je rozečtená")
+
+
+## LENT TO, the book was lent to "name of person", + date of borrowing
+@kids_library.command()
+@click.option("--book_id", prompt="Enter the ID of the borrowed book")
+@click.option("--person", prompt="Enter the name of the person who borrowed the book")
+def borrowed(book_id, person):
+    book_session = connect_to()
+    qu = book_session.query(Book)
+    borrowed_book = qu.filter_by(id=book_id).one()
+    borrowed_book.lent_to = person
+    borrowed_book.date_of_borrowing = datetime.now()
+    book_session.add(borrowed_book)
+    book_session.commit()
+    print(f"Kniha s ID {book_id} byla půjčena {borrowed_book}")
 
 
 

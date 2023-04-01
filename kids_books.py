@@ -29,41 +29,47 @@ class Book(Base):
     book_name = Column(String)
     author = Column(String)
     number_of_pages = Column(Integer)
-    #read = Column(bool)
-    #partially_read = Column(bool)
+    #date_added = Column(DateTime)      # rozbíjí mi to -> vyřešit
+    #read = Column(bool)        # bool nelze? -> vygooglit
+    #partially_read = Column(bool)      # bool nelze? -> vygooglit
     lent_to = Column(String)        # name of person or None
     date_of_borrowing = Column(DateTime)
 
     def __repr__(self):
-        return f"<Kniha(id='.{self.id}.', book_name='.{self.book_name}.', author = '.{self.author}.', date_of_borrowing={self.date_of_borrowing})"
+        return f"<Kniha(id='.{self.id}.', book_name='.{self.book_name}.', author = '.{self.author}.', date_of_borrowing={self.date_of_borrowing})"  # date_added={self.date_added}
     
 
 @click.group()
 def kids_library():
     pass
 
-# add book into the library
+# ADD book into the library
 @kids_library.command()
-@click.option("--adding", prompt="Add a book")
-# @click.argument("")
-def add_book(adding):
+# @click.option("--adding", prompt="Add a book")
+# @click.argument("name")
+# @click.argument("author")
+# @click.argument("pages")
+@click.option("--name", prompt="Name of the book")
+@click.option("--author", prompt="Author of the book")
+@click.option("--pages", prompt="Number of pages")
+
+def add_book(name, author, pages):
     # book_session = connect_to()
     book_session = Session()
-    book = Book(book_name=adding)    #, author=adding, number_of_pages=adding)
+    book = Book(book_name=name, author=author, number_of_pages=pages)       # , date_added=datetime.now()
     book_session.add(book)
     book_session.commit()
-    print(f"Pridano: {book.book_name}")     #{book.author} {book.number_of_pages}
-
+    print(f"Added: {book.book_name}, {book.author}, {book.number_of_pages}")    # , {book.date_added}
 
 # write out the content of the library, dump file
 @kids_library.command()
 # @click.option
 def dump_file():
     book_session = Session()
-    qu = book_session.query(Book)
+    qu = book_session.query(Book)   #qu (=query)
     books = qu.all()
     for book in books:
-        print(f"{book.id}.) Název: {book.book_name}, autor: {book.author}, počet stran: {book.number_of_pages}")
+        print(f"{book.id}.) Název: {book.book_name}, autor: {book.author}, počet stran: {book.number_of_pages}")    #(zadáno: {book.date_added})
 
 
 if __name__ == "__main__":

@@ -63,7 +63,12 @@ def dump_file():
     qu = book_session.query(Book)   #qu (=query)
     books = qu.all()
     for book in books:
-        print(f"{book.id}.) Název: {book.book_name}, autor: {book.author}, počet stran: {book.number_of_pages} (přidáno do knihovny: {book.date_added})")
+        if book.read_yes_no:
+            print(f"{book.id}.) Název: {book.book_name}, autor: {book.author}, počet stran: {book.number_of_pages}, přidáno do knihovny: {book.date_added}, PŘEČTENO")
+        elif book.partially_read:
+            print(f"{book.id}.) Název: {book.book_name}, autor: {book.author}, počet stran: {book.number_of_pages}, přidáno do knihovny: {book.date_added}, ROZEČTENO")
+        else:
+            print(f"{book.id}.) Název: {book.book_name}, autor: {book.author}, počet stran: {book.number_of_pages}, přidáno do knihovny: {book.date_added}")
 
 
 ## READ, the books that we have already read
@@ -77,6 +82,19 @@ def already_read(book_id):
     book_session.add(read_book)
     book_session.commit()
     print(f"Kniha s ID {book_id} byla přečtena")
+
+
+## PARTIALLY READ, the books where we are in the middle of the reading
+@kids_library.command()
+@click.option("--book_id", prompt="Insert ID of the book")
+def partially_read(book_id):
+    book_session = connect_to()
+    qu = book_session.query(Book)
+    read_book = qu.filter_by(id=book_id).one()
+    read_book.partially_read = True
+    book_session.add(read_book)
+    book_session.commit()
+    print(f"Kniha s ID {book_id} je rozečtená")
 
 
 

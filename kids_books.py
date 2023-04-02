@@ -54,7 +54,7 @@ def add_book(name, author, pages):
     book_session.commit()
     print(f"Added: {book.book_name}, {book.author}, {book.number_of_pages}")
 
-
+# dodělat výpis půjčených knih
 ## SUMMARY, write out the content of the library, dump file
 @kids_library.command()
 def dump_file():
@@ -96,8 +96,6 @@ def partially_read(book_id):
     print(f"Kniha s ID {book_id} je rozečtená")
 
 
-
-### Dodělat možnost půjčení + výpis půjčených knih
 ## LENT TO, the book was lent to "name of person", + date of borrowing
 @kids_library.command()
 @click.option("--book_id", prompt="Enter the ID of the borrowed book")
@@ -106,11 +104,14 @@ def lend(book_id, person):
     book_session = connect_to()
     qu = book_session.query(Book)
     borrowed_book = qu.filter_by(id=book_id).one()
-    borrowed_book.lent_to = person
-    borrowed_book.date_of_borrowing = datetime.now()
-    book_session.add(borrowed_book)
-    book_session.commit()
-    print(f"Kniha s ID {book_id} byla půjčena {borrowed_book.lent_to} dne {borrowed_book.date_of_borrowing}")
+    if borrowed_book.lent_to == None:
+        borrowed_book.lent_to = person
+        borrowed_book.date_of_borrowing = datetime.now()
+        book_session.add(borrowed_book)
+        book_session.commit()
+        print(f"Kniha s ID {book_id} byla půjčena {borrowed_book.lent_to} dne {borrowed_book.date_of_borrowing}")
+    else:
+        print(f"Nelze půjčit. Knihu s ID {book_id} má již půjčenou uživatel {borrowed_book.lent_to}")
 
 
 ## PŘIDAT MOZNOST VRACENI

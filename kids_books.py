@@ -96,11 +96,13 @@ def partially_read(book_id):
     print(f"Kniha s ID {book_id} je rozečtená")
 
 
+
+### Dodělat možnost půjčení + výpis půjčených knih
 ## LENT TO, the book was lent to "name of person", + date of borrowing
 @kids_library.command()
 @click.option("--book_id", prompt="Enter the ID of the borrowed book")
 @click.option("--person", prompt="Enter the name of the person who borrowed the book")
-def borrowed(book_id, person):
+def lend(book_id, person):
     book_session = connect_to()
     qu = book_session.query(Book)
     borrowed_book = qu.filter_by(id=book_id).one()
@@ -108,7 +110,27 @@ def borrowed(book_id, person):
     borrowed_book.date_of_borrowing = datetime.now()
     book_session.add(borrowed_book)
     book_session.commit()
-    print(f"Kniha s ID {book_id} byla půjčena {borrowed_book}")
+    print(f"Kniha s ID {book_id} byla půjčena {borrowed_book.lent_to} dne {borrowed_book.date_of_borrowing}")
+
+
+## PŘIDAT MOZNOST VRACENI
+
+
+
+
+
+## NOTES
+#doplnit funkci na zapsani poznamek
+
+
+
+
+
+
+## UPDATE       #lze udelat v prikazove radce přes sqlite
+#C:\Data\python_knihovny\04\kids_library>C:\sqlite\sqlite3.exe books.sqlite
+# sqlite> update kids_book set book_name = 'opraveny_nazev' where id=1;
+# ????? včera fungovalo, dnes píše přístup odepřen, tato aplikace nemůže běžet ve vašem počítači
 
 
 

@@ -1,0 +1,22 @@
+**Cvičení na knihovny click a sqlalchemy (dobrovolný domácí projekt)** 
+
+Vytvořte aplikaci, která bude uchovávat obsah vaší knihovny (knihomolové nechť si vyberou reprezentativní vzorek, aby se neupsali).
+
+Aplikace by měla uchovávat tyto údaje:
+- název knihy
+- autor
+- počet stran
+- datum přidání do knihovny
+- přečtená (ano/ne)
+- rozečtená (ano/ne)
+- půjčená (půjčená komu/None)
+- datum zapůjčení (datum/None)
+- další informace, které uznáte za vhodné (např. identifikace knihy, slovní hodnocení) 
+
+S aplikací by mělo být možné zacházet zeširoka, tedy knihy vkládat, vypisovat, zapůjčovat a zápůjčky vracet, editovat chybné položky, nastavovat příznak přečtení a rozečtení atd. Výpis ideálně nějak rozumně formátovaný, případně např. celkový + detailní o jedné knize.
+
+Celkový rozsah realizace nechávám na vás. Není třeba dělat do detailu vše, co by mělo nízkou úroveň využití, ale můžete realizovat to, co by vám dávalo smysl.
+
+Kostra projektu bude velice podobná jako na pondělní lekci, můžete tedy vycházet z ní. Pokud budete potřebovat upřesnit zadání nebo konzultovat vývoj, problémy atd., určitě se ozvěte. Pokud by někde chtěl výsledek vyhodnotit, samozřejmě jsem rád k službám.
+
+Pokud by vám zadání přišlo příliš složité, libovolně z něj uberte a pokuste se vypracovat funkční aplikaci, i kdyby naprosto minimalistickou.

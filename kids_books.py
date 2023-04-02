@@ -57,9 +57,16 @@ def add_book(name, author, pages):
 # dodělat výpis půjčených knih
 ## SUMMARY, write out the content of the library, dump file
 @kids_library.command()
-def dump_file():
+@click.option("--borrowed", default=False, is_flag=True)        # co vlastne znamena is_flag a z jakeho duvodu se tam dava (opsano z ukoly.py)
+def dump_file(borrowed):
     book_session = connect_to()
     qu = book_session.query(Book)   #qu (=query)
+    if borrowed:
+        qu = qu.filter(Book.lent_to != None)
+        # print(f"{Book.id} {Book.book_name} PŮJČENO")
+        print(qu)
+        print("PŮJČENO")    # vypíše knihy, které jsou půjčené, ale nevypisuje komu
+
     books = qu.all()
     for book in books:
         if book.read_yes_no:

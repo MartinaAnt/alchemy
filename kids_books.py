@@ -65,8 +65,9 @@ def dump_file(borrowed):
     if borrowed:
         qu = qu.filter(Book.lent_to != None)
         # print(f"{Book.id} {Book.book_name} PŮJČENO")
-        print(qu)
-        print("PŮJČENO")    # vypíše knihy, které jsou půjčené, ale nevypisuje komu
+        #print(qu)
+        print("PŮJČENO")    
+        # vypíší se knihy, které jsou půjčené, ale už se nevypisuje komu
 
     books = qu.all()
     for book in books:
@@ -154,9 +155,9 @@ def notes(book_id, note):
 
 
 ## UPDATE       #lze udelat v prikazove radce přes sqlite
-#C:\Data\python_knihovny\04\kids_library>C:\sqlite\sqlite3.exe books.sqlite
+#C:\Data\python_knihovny\04\kids_library>C:data\sqlite\sqlite3.exe books.sqlite
 # sqlite> update kids_book set book_name = 'opraveny_nazev' where id=1;
-# ????? včera fungovalo, dnes píše přístup odepřen, tato aplikace nemůže běžet ve vašem počítači
+# ????? včera fungovalo, dnes píše přístup odepřen, tato aplikace nemůže běžet ve vašem počítači -> opraveno. z nějakeho duvodu mel soubor exe 0b. -> nainstalovano znovu, zmena slozky
 
 
 

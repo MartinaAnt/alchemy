@@ -121,9 +121,18 @@ def lend(book_id, person):
         print(f"Nelze půjčit. Knihu s ID {book_id} má již půjčenou uživatel {borrowed_book.lent_to}")
 
 
-## PŘIDAT MOZNOST VRACENI
-
-
+## BOOK RETURN      # ještě by šlo vylepšit
+@kids_library.command()
+@click.option("--book_id", prompt="Enter the ID of the returned book")
+def book_return(book_id):
+    book_session = connect_to()
+    qu = book_session.query(Book)
+    return_book = qu.filter_by(id=book_id).one()
+    return_book.lent_to = None
+    return_book.date_of_borrowing = None
+    book_session.add(return_book)
+    book_session.commit()
+    print(f"Kniha s ID {book_id} byla VRÁCENA")
 
 
 

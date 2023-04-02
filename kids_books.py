@@ -54,7 +54,8 @@ def add_book(name, author, pages):
     book_session.commit()
     print(f"Added: {book.book_name}, {book.author}, {book.number_of_pages}")
 
-# dodělat výpis půjčených knih
+# vylepšit výpis půjčených knih
+# přidat možnost výpisu poznámek
 ## SUMMARY, write out the content of the library, dump file
 @kids_library.command()
 @click.option("--borrowed", default=False, is_flag=True)        # co vlastne znamena is_flag a z jakeho duvodu se tam dava (opsano z ukoly.py)
@@ -136,10 +137,18 @@ def book_return(book_id):
 
 
 
-## NOTES
-#doplnit funkci na zapsani poznamek
-
-
+## NOTES, add a note to the book
+@kids_library.command()
+@click.option("--book_id", prompt="Enter the ID of the book you want to write a note to")
+@click.option("--note", prompt="Your note")
+def notes(book_id, note):
+    book_session = connect_to()
+    qu = book_session.query(Book)
+    text = qu.filter_by(id=book_id).one()
+    text.notes = note
+    book_session.add(text)
+    book_session.commit()
+    print(f"Přidána poznámka ke knize {book_id}: {text.notes}")
 
 
 

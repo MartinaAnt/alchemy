@@ -1,0 +1,25 @@
+sqlite
+- pokud již vytvořím databázi např. books.sqlite, tak pokud do ní chci přidat sloupec, tak to nelze dělat přes třídu v souboru kids_books.py -> to už se do tabulky v databazi nepropise
+=> pokud v databazi nemam jeste zadna data, lze ji smazat a vytvorit znovu, jiz s novym sloupcem / sloupci
+=> pokud uz v ni mam data, o ktere nechci prijit, pak lze sloupce pridavat pomoci sqlite (nasledujici prikazy)
+    C:\Data\python_knihovny\04\kids_library>C:\sqlite\sqlite3.exe books.sqlite
+    sqlite> alter table kids_books add column notes varchar;
+        # alter table nazev-tabulky add column nazev-sloupce datovy-typ
+        # nezapomenout na strednik
+        # varchar je pro String
+        # prikazem .dump lze vypsat
+
+Vice zde
+# https://cloudinfrastructureservices.co.uk/how-to-install-sqlite-on-windows-10-2016-2019-2022-sqlite3/
+
+
+AttributeError: 'sessionmaker' object has no attribute 'add'
+-> protoze mi chybely zavorky  Session()
+
+
+## UPDATE       #přepsáni hodnoty v tabulce lze udelat v prikazove radce přes sqlite
+C:\Data\python_knihovny\04\kids_library>C:\data\sqlite\sqlite3.exe books.sqlite
+sqlite> update kids_books set book_name = 'opraveny_nazev' where id=1;
+kids_books je nazev tabulky
+Pozor nezapominat na strednik 
+????? včera fungovalo, dnes píše přístup odepřen, tato aplikace nemůže běžet ve vašem počítači -> opraveno. z nějakeho duvodu mel soubor exe 0b. -> nainstalovano znovu, zmena slozky

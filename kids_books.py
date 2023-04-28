@@ -111,7 +111,7 @@ def lend(book_id, person):
     book_session = connect_to()
     qu = book_session.query(Book)
     borrowed_book = qu.filter_by(id=book_id).one()
-    if borrowed_book.lent_to == None:
+    if borrowed_book.lent_to is None:
         borrowed_book.lent_to = person
         borrowed_book.date_of_borrowing = datetime.now()
         book_session.add(borrowed_book)

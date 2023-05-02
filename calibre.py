@@ -146,10 +146,7 @@ def oznac(identifikace, precteno, neprecteno=None):
     sezeni = pripoj_se()
     dotaz = sezeni.query(Kniha)
     kniha = dotaz.filter_by(id=identifikace).one()
-    if precteno:
-        kniha.precteno = 'prectena'
-    else:
-        kniha.precteno = 'neprectena'
+    kniha.precteno = 'prectena' if precteno else 'neprectena'
     sezeni.add(kniha)
     sezeni.commit()
     print(f'Kniha {kniha.id} byla přečtena')
